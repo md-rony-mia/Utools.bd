@@ -1,0 +1,157 @@
+import React, { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { HomePage } from './pages/HomePage.tsx';
+
+// Every non-home page is code-split into its own chunk so the homepage's JS
+// bundle doesn't have to carry all 17 tools' code on first load. Each tool's
+// code downloads only when its route is actually visited.
+const ConverterPage = lazy(() => import('./pages/ConverterPage.tsx').then((m) => ({ default: m.ConverterPage })));
+const PhotoResizerPage = lazy(() => import('./pages/PhotoResizerPage.tsx').then((m) => ({ default: m.PhotoResizerPage })));
+const AgeCalculatorPage = lazy(() => import('./pages/AgeCalculatorPage.tsx').then((m) => ({ default: m.AgeCalculatorPage })));
+const AmountInWordsPage = lazy(() => import('./pages/AmountInWordsPage.tsx').then((m) => ({ default: m.AmountInWordsPage })));
+const CvBuilderPage = lazy(() => import('./pages/CvBuilderPage.tsx').then((m) => ({ default: m.CvBuilderPage })));
+const GpaCalculatorPage = lazy(() => import('./pages/GpaCalculatorPage.tsx').then((m) => ({ default: m.GpaCalculatorPage })));
+const LandConverterPage = lazy(() => import('./pages/LandConverterPage.tsx').then((m) => ({ default: m.LandConverterPage })));
+const PdfMergerPage = lazy(() => import('./pages/PdfMergerPage.tsx').then((m) => ({ default: m.PdfMergerPage })));
+const PdfSplitPage = lazy(() => import('./pages/PdfSplitPage.tsx').then((m) => ({ default: m.PdfSplitPage })));
+const PdfDeletePagesPage = lazy(() => import('./pages/PdfDeletePagesPage.tsx').then((m) => ({ default: m.PdfDeletePagesPage })));
+const PdfRotatePage = lazy(() => import('./pages/PdfRotatePage.tsx').then((m) => ({ default: m.PdfRotatePage })));
+const PdfWatermarkPage = lazy(() => import('./pages/PdfWatermarkPage.tsx').then((m) => ({ default: m.PdfWatermarkPage })));
+const ImageMergerPage = lazy(() => import('./pages/ImageMergerPage.tsx').then((m) => ({ default: m.ImageMergerPage })));
+const BulkPhotoResizerPage = lazy(() => import('./pages/BulkPhotoResizerPage.tsx').then((m) => ({ default: m.BulkPhotoResizerPage })));
+const HeicConverterPage = lazy(() => import('./pages/HeicConverterPage.tsx').then((m) => ({ default: m.HeicConverterPage })));
+const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage.tsx').then((m) => ({ default: m.QrGeneratorPage })));
+const BanglaDateConverterPage = lazy(() => import('./pages/BanglaDateConverterPage.tsx').then((m) => ({ default: m.BanglaDateConverterPage })));
+const AboutPage = lazy(() => import('./pages/AboutPage.tsx').then((m) => ({ default: m.AboutPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage.tsx').then((m) => ({ default: m.ContactPage })));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx').then((m) => ({ default: m.PrivacyPolicyPage })));
+const BlogListPage = lazy(() => import('./pages/BlogListPage.tsx').then((m) => ({ default: m.BlogListPage })));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage.tsx').then((m) => ({ default: m.BlogPostPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx').then((m) => ({ default: m.NotFoundPage })));
+
+// Every lazy importer above, using the exact same specifiers as the lazy()
+// calls so they resolve against the same module records in this bundle.
+// prerender.ts awaits this (via preloadAllPages) before its trigger pass so
+// each React.lazy() ctor() resolves off an already-cached module instead of
+// a fresh disk read.
+const LAZY_PAGE_IMPORTERS: Array<() => Promise<unknown>> = [
+  () => import('./pages/ConverterPage.tsx'),
+  () => import('./pages/PhotoResizerPage.tsx'),
+  () => import('./pages/AgeCalculatorPage.tsx'),
+  () => import('./pages/AmountInWordsPage.tsx'),
+  () => import('./pages/CvBuilderPage.tsx'),
+  () => import('./pages/GpaCalculatorPage.tsx'),
+  () => import('./pages/LandConverterPage.tsx'),
+  () => import('./pages/PdfMergerPage.tsx'),
+  () => import('./pages/PdfSplitPage.tsx'),
+  () => import('./pages/PdfDeletePagesPage.tsx'),
+  () => import('./pages/PdfRotatePage.tsx'),
+  () => import('./pages/PdfWatermarkPage.tsx'),
+  () => import('./pages/ImageMergerPage.tsx'),
+  () => import('./pages/BulkPhotoResizerPage.tsx'),
+  () => import('./pages/HeicConverterPage.tsx'),
+  () => import('./pages/QrGeneratorPage.tsx'),
+  () => import('./pages/BanglaDateConverterPage.tsx'),
+  () => import('./pages/AboutPage.tsx'),
+  () => import('./pages/ContactPage.tsx'),
+  () => import('./pages/PrivacyPolicyPage.tsx'),
+  () => import('./pages/BlogListPage.tsx'),
+  () => import('./pages/BlogPostPage.tsx'),
+  () => import('./pages/NotFoundPage.tsx'),
+];
+
+/** Used only by prerender.ts's warm-up pass — not called from the app itself. */
+export async function preloadAllPages(): Promise<void> {
+  await Promise.all(LAZY_PAGE_IMPORTERS.map((load) => load()));
+}
+
+// Rendered through the catch-all route above and written to dist/404.html by
+// prerender.ts (served with a real 404 status by server.ts / the hosting platform).
+export const NOT_FOUND_ROUTE = '/__404__';
+
+export const PRERENDER_ROUTES = [
+  '/',
+  '/converter',
+  '/photo-resizer',
+  '/bulk-photo-resizer',
+  '/heic-converter',
+  '/image-merger',
+  '/qr-generator',
+  '/age-calculator',
+  '/amount-in-words',
+  '/bangla-date-converter',
+  '/cv-builder',
+  '/gpa-calculator',
+  '/land-converter',
+  '/pdf-merger',
+  '/pdf-split',
+  '/pdf-delete-pages',
+  '/pdf-rotate',
+  '/pdf-watermark-page-number',
+  '/about',
+  '/contact',
+  '/privacy-policy',
+  '/blog',
+  '/blog/teletalk-photo-signature-resize-guide',
+  '/blog/bijoy-to-unicode-conversion-tips',
+  '/blog/bangla-date-calculation-rules',
+] as const;
+
+export interface AppRoutesProps {
+  selectedCategory?: string;
+  onSelectCategory?: (category: string) => void;
+  onOpenTerms?: () => void;
+}
+
+/** Plain, unstyled placeholder — only ever visible for a moment on a slow connection while a tool's chunk downloads. */
+const RouteFallback: React.FC = () => (
+  <div className="min-h-[40vh] flex items-center justify-center" aria-busy="true" aria-live="polite">
+    <span className="sr-only">লোড হচ্ছে…</span>
+  </div>
+);
+
+export function AppRoutes({
+  selectedCategory = 'all',
+  onSelectCategory = () => {},
+  onOpenTerms = () => {},
+}: AppRoutesProps) {
+  return (
+    <Suspense fallback={<RouteFallback />}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              selectedCategory={selectedCategory}
+              onSelectCategory={onSelectCategory}
+              onOpenTerms={onOpenTerms}
+            />
+          }
+        />
+        <Route path="/converter" element={<ConverterPage />} />
+        <Route path="/photo-resizer" element={<PhotoResizerPage />} />
+        <Route path="/bulk-photo-resizer" element={<BulkPhotoResizerPage />} />
+        <Route path="/heic-converter" element={<HeicConverterPage />} />
+        <Route path="/image-merger" element={<ImageMergerPage />} />
+        <Route path="/qr-generator" element={<QrGeneratorPage />} />
+        <Route path="/age-calculator" element={<AgeCalculatorPage />} />
+        <Route path="/amount-in-words" element={<AmountInWordsPage />} />
+        <Route path="/bangla-date-converter" element={<BanglaDateConverterPage />} />
+        <Route path="/cv-builder" element={<CvBuilderPage />} />
+        <Route path="/gpa-calculator" element={<GpaCalculatorPage />} />
+        <Route path="/land-converter" element={<LandConverterPage />} />
+        <Route path="/pdf-merger" element={<PdfMergerPage />} />
+        <Route path="/pdf-split" element={<PdfSplitPage />} />
+        <Route path="/pdf-delete-pages" element={<PdfDeletePagesPage />} />
+        <Route path="/pdf-rotate" element={<PdfRotatePage />} />
+        <Route path="/pdf-watermark-page-number" element={<PdfWatermarkPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/blog" element={<BlogListPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
+  );
+}

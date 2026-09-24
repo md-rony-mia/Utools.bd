@@ -1,0 +1,549 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------------
+   Self-Hosted Fonts (Zero external network requests, eliminates render-blocking)
+   Noto Sans Bengali (UI + Typography) & JetBrains Mono (Monospace / Bijoy ANSI)
+   ------------------------------------------------------------- */
+
+/* Noto Sans Bengali */
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-800.woff2') format('woff2');
+}
+
+/* JetBrains Mono */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-700.woff2') format('woff2');
+}
+
+/* Metric-matched system fallbacks to completely eliminate layout shifts (CLS) during font swap */
+
+@font-face {
+  font-family: 'Noto Sans Bengali Fallback';
+  src: local('Roboto');
+  size-adjust: 127.69%;
+  ascent-override: 71.81%;
+  descent-override: 31.95%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali Fallback';
+  src: local('Arial');
+  size-adjust: 127.41%;
+  ascent-override: 71.97%;
+  descent-override: 32.02%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali Fallback';
+  src: local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 127.41%;
+  ascent-override: 71.97%;
+  descent-override: 32.02%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali Fallback';
+  src: local('Segoe UI');
+  size-adjust: 128.11%;
+  ascent-override: 71.58%;
+  descent-override: 31.85%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali Fallback';
+  src: local('Noto Sans');
+  size-adjust: 119.83%;
+  ascent-override: 76.52%;
+  descent-override: 34.05%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Consolas');
+  size-adjust: 100%;
+  ascent-override: 102%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Courier New');
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
+@theme {
+  /* Brand */
+  --color-emerald-deep: #0B5D3B;
+  --color-emerald-dark: #084A2E;
+  --color-emerald-mid: #0D7048;
+  --color-emerald-light: #E6F4EC;
+  --color-amber-brand: #F5A524;
+  --color-amber-light: #FEF3D0;
+  --color-text-heading: #0F1F17;
+  --color-text-body: #4A5A52;
+  --color-bg-main: #FAFAF7;
+  --color-line: #D5E4DB;
+
+  /* Legacy token names (unused in class names today) remapped to the new palette */
+  --color-paper: #FAFAF7;
+  --color-panel: #FFFFFF;
+  --color-primary-green: #0B5D3B;
+  --color-deep-green: #084A2E;
+  --color-accent-red: #c8342a;
+  --color-border-line: #D5E4DB;
+  --color-muted-text: #4A5A52;
+  --color-ink: #0F1F17;
+
+  --font-serif: "Noto Sans Bengali", "Noto Sans Bengali Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Noto Sans Bengali", "Noto Sans Bengali Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-latin: "Noto Sans Bengali", "Noto Sans Bengali Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+
+  --radius-card: 16px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  /* Soft corners for form controls. Lives in the base layer, so any explicit
+     rounded-* utility on a tool page still wins. */
+  button,
+  select,
+  textarea,
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='file']) {
+    border-radius: 0.625rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid #0B5D3B;
+    outline-offset: 2px;
+  }
+}
+
+body {
+  background-color: #FAFAF7;
+  color: #0F1F17;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-serif);
+}
+
+.font-code {
+  font-family: var(--font-mono);
+}
+
+.font-latin {
+  font-family: var(--font-latin);
+}
+
+/* The CV is a printed/exported document: keep its original Noto Sans Bengali
+   typography regardless of the site UI font. */
+#cv-print-area,
+.cv-physical-page,
+.cv-clean-export-page {
+  --font-sans: "Noto Sans Bengali", "Noto Sans Bengali Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Noto Sans Bengali", "Noto Sans Bengali Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* body's font-family is inherited as a computed value, so re-declare it here
+     for text that carries no font-* utility of its own */
+  font-family: var(--font-sans);
+  color: #14231c; /* original ink colour, so the printed CV is unchanged */
+}
+
+/* ── Homepage / shell components ───────────────────────────────────────── */
+
+.dot-grid {
+  background-image: radial-gradient(circle, #0B5D3B18 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glass {
+  background: rgba(250, 250, 247, 0.82);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(11, 93, 59, 0.1);
+}
+
+.squiggle-underline {
+  position: relative;
+  display: inline-block;
+}
+.squiggle-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8'%3E%3Cpath d='M0 4 Q25 0 50 4 Q75 8 100 4 Q125 0 150 4 Q175 8 200 4' fill='none' stroke='%23F5A524' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.2s ease;
+}
+.card-hover:hover,
+.card-hover:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(11, 93, 59, 0.12), 0 4px 16px rgba(11, 93, 59, 0.08);
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  left: 150%;
+}
+
+.tool-arrow {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+.tool-card:hover .tool-arrow,
+.tool-card:focus-within .tool-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* Touch screens have no hover: keep the call-to-action visible */
+@media (hover: none) {
+  .tool-arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-8px) rotate(-3deg); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(-4px) rotate(2deg); }
+  50% { transform: translateY(4px) rotate(2deg); }
+}
+@keyframes float3 {
+  0%, 100% { transform: translateY(2px) rotate(-1deg); }
+  50% { transform: translateY(-6px) rotate(-1deg); }
+}
+.float-1 { animation: float1 5s ease-in-out infinite; }
+.float-2 { animation: float2 6s ease-in-out infinite 1s; }
+.float-3 { animation: float3 4.5s ease-in-out infinite 0.5s; }
+
+/* ── Cursor follower (dot + ring) ─────────────────────────────────────────── */
+.cursor-follower {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor-follower[data-show] { opacity: 1; }
+.cursor-follower[data-state='hidden'] { opacity: 0; }
+.cf-pos { position: absolute; left: 0; top: 0; will-change: transform; }
+.cf-dot,
+.cf-ring {
+  position: absolute;
+  border-radius: 9999px;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease;
+}
+.cf-dot { width: 6px; height: 6px; left: -3px; top: -3px; background: #0B5D3B; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9); }
+.cf-ring { width: 34px; height: 34px; left: -17px; top: -17px; border: 1.5px solid rgba(11, 93, 59, 0.5); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7); }
+.cursor-follower[data-state='hover'] .cf-ring { transform: scale(1.65); background: rgba(11, 93, 59, 0.08); border-color: rgba(11, 93, 59, 0.3); }
+.cursor-follower[data-state='hover'] .cf-dot { transform: scale(0.6); }
+.cursor-follower[data-down] .cf-ring { transform: scale(0.8); }
+.cursor-follower[data-down][data-state='hover'] .cf-ring { transform: scale(1.3); }
+/* over dark sections (privacy, final CTA, footer) */
+.cursor-follower[data-theme='dark'] .cf-dot { background: #F5A524; box-shadow: 0 0 0 1.5px rgba(15, 31, 23, 0.55); }
+.cursor-follower[data-theme='dark'] .cf-ring { border-color: rgba(255, 255, 255, 0.55); box-shadow: none; }
+.cursor-follower[data-theme='dark'][data-state='hover'] .cf-ring { background: rgba(245, 165, 36, 0.16); border-color: rgba(245, 165, 36, 0.6); }
+
+/* ── Floating actions: back-to-top + WhatsApp ───────────────────────────── */
+.stt {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: #ffffff;
+  color: #0B5D3B;
+  box-shadow: 0 8px 24px rgba(11, 93, 59, 0.18), 0 2px 6px rgba(11, 93, 59, 0.12);
+  /* hidden until the page is scrolled: visibility keeps it out of the tab order */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(18px) scale(0.8);
+  transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0s linear 0.4s,
+    background-color 0.2s ease, color 0.2s ease, box-shadow 0.3s ease;
+}
+.stt[data-visible='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0s,
+    background-color 0.2s ease, color 0.2s ease, box-shadow 0.3s ease;
+}
+.stt[data-visible='true']:hover,
+.stt[data-visible='true'][data-launching] {
+  background: #0B5D3B;
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+.stt[data-visible='true']:active { transform: translateY(0) scale(0.94); }
+.stt[data-launching] { box-shadow: 0 12px 30px rgba(245, 165, 36, 0.45), 0 2px 6px rgba(11, 93, 59, 0.2); }
+
+.stt-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); pointer-events: none; }
+.stt-track, .stt-progress { fill: none; stroke-width: 3; }
+.stt-track { stroke: rgba(11, 93, 59, 0.12); }
+.stt-progress {
+  stroke: #0B5D3B;
+  stroke-linecap: round;
+  stroke-dasharray: 144.51px;
+  stroke-dashoffset: calc(144.51px * (1 - var(--sp, 0)));
+}
+.stt:hover .stt-track, .stt[data-launching] .stt-track { stroke: rgba(255, 255, 255, 0.22); }
+.stt:hover .stt-progress, .stt[data-launching] .stt-progress { stroke: #F5A524; }
+
+.stt-arrow { display: grid; place-items: center; }
+@keyframes stt-rise {
+  0%   { transform: translateY(0);    opacity: 1; }
+  45%  { transform: translateY(-14px); opacity: 0; }
+  46%  { transform: translateY(14px);  opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+.stt[data-launching] .stt-arrow { animation: stt-rise 0.7s ease-in-out infinite; }
+.stt:hover .stt-arrow { transform: translateY(-1px); }
+
+.wa-fab {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 52px;
+  border-radius: 9999px;
+  background: #25D366;
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4), 0 2px 6px rgba(15, 31, 23, 0.15);
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.2s ease;
+}
+.wa-fab:hover, .wa-fab:focus-visible { background: #1EBE5A; transform: translateY(-3px); box-shadow: 0 14px 32px rgba(37, 211, 102, 0.5), 0 2px 6px rgba(15, 31, 23, 0.15); }
+.wa-fab:active { transform: translateY(0) scale(0.96); }
+.wa-icon { width: 52px; height: 52px; display: grid; place-items: center; flex: none; position: relative; z-index: 1; }
+.wa-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: max-width 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+}
+/* a soft pulse now and then to say "we're here" */
+.wa-fab::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  background: #25D366;
+  opacity: 0;
+  animation: wa-pulse 3.2s ease-out 2s infinite;
+  pointer-events: none;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1);   opacity: 0.45; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@media (hover: hover) and (min-width: 768px) {
+  .wa-fab:hover .wa-label, .wa-fab:focus-visible .wa-label { max-width: 12rem; opacity: 1; padding-left: 1.1rem; padding-right: 0.2rem; }
+  .wa-fab:hover::before, .wa-fab:focus-visible::before { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stt, .stt[data-visible='true'], .wa-fab, .wa-label { transition: none; }
+  .stt[data-launching] .stt-arrow { animation: none; }
+  .wa-fab::before { animation: none; display: none; }
+}
+
+/* Parallax layers are only promoted to compositor layers while their scene is on/near screen */
+.px-layer { will-change: auto; }
+[data-px-stage] { contain: layout paint; }
+[data-px-stage][data-active] .px-layer { will-change: transform; }
+
+.glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .float-1, .float-2, .float-3 { animation: none; }
+  .card-hover, .tool-arrow, .btn-shine::after { transition: none; }
+}
+
+/* Strict Bengali Typographic Integrity in CV Pages & Canvas Exports */
+.cv-physical-page,
+.cv-physical-page *,
+#cv-print-area,
+#cv-print-area * {
+  letter-spacing: 0px !important;
+  word-spacing: normal !important;
+  text-transform: none !important;
+  text-rendering: geometricPrecision !important;
+  font-feature-settings: "liga" 1, "dlig" 1 !important;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  header, nav, footer, .no-print, [role="dialog"], #navbar, .navbar, .cv-builder-controls, .preview-nav-bar {
+    display: none !important;
+  }
+
+  .cv-physical-page {
+    display: flex !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  .cv-physical-page:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  .page-screen-badge, .cv-page-break-guide {
+    display: none !important;
+  }
+}
+
+/* QR Code Preview Frame Enforcement - Prevents high-res canvases from expanding beyond preview */
+.qr-canvas-preview canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}

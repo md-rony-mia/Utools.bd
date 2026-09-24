@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।" />
+    <meta property="og:title" content="Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস" />
+    <meta property="og:description" content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://utools.bd/og-image.png?v=2" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://utools.bd/og-image.png?v=2" />
+
+    <!-- Self-hosted font-face declarations & metric fallback overrides to eliminate CLS and FOUC -->
+    <style>
+      @font-face {
+        font-family: 'Noto Sans Bengali';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/noto-sans-bengali-400.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url('/fonts/noto-sans-bengali-600.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('/fonts/noto-sans-bengali-700.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Roboto');
+        size-adjust: 127.69%;
+        ascent-override: 71.81%;
+        descent-override: 31.95%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Arial');
+        size-adjust: 127.41%;
+        ascent-override: 71.97%;
+        descent-override: 32.02%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Helvetica Neue'), local('Helvetica');
+        size-adjust: 127.41%;
+        ascent-override: 71.97%;
+        descent-override: 32.02%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Segoe UI');
+        size-adjust: 128.11%;
+        ascent-override: 71.58%;
+        descent-override: 31.85%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Noto Sans');
+        size-adjust: 119.83%;
+        ascent-override: 76.52%;
+        descent-override: 34.05%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono Fallback';
+        src: local('Consolas');
+        size-adjust: 100%;
+        ascent-override: 102%;
+        descent-override: 30%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono Fallback';
+        src: local('Courier New');
+        size-adjust: 99.98%;
+        ascent-override: 102.02%;
+        descent-override: 30%;
+        line-gap-override: 0%;
+      }
+    </style>
+
+    <!-- Self-hosted Font Preload: Noto Sans Bengali (instant first-paint text rendering with zero render-blocking requests) -->
+    <link rel="preload" href="/fonts/noto-sans-bengali-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/noto-sans-bengali-600.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body class="bg-[#FAFAF7] text-[#0F1F17] font-sans antialiased selection:bg-[#0B5D3B]/20 selection:text-[#084A2E]">
+    <div id="root"></div>
+    <script>
+      /* Ensure window.fetch has both a getter and a setter so parent iframe environments or extensions can safely attach/wrap fetch */
+      (function(){try{var f=window.fetch?window.fetch.bind(window):null,c=f,d={get:function(){return c},set:function(v){c=v},configurable:!0,enumerable:!0};Object.defineProperty(window,'fetch',d);if(typeof Window!=='undefined'&&Window.prototype){try{Object.defineProperty(Window.prototype,'fetch',d)}catch(_){}}}catch(_){}})();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
